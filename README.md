@@ -9,6 +9,7 @@ MongoDB, Express, Node, Semantic UI
 ## Workflow:
 
 1. SETUP
+
     * create package.json containing  metadata (especially dependencies)using npm init command
     * install necessary node packages using npm (node package manager)
         - express - node framework
@@ -40,4 +41,11 @@ MongoDB, Express, Node, Semantic UI
         - create blog (also includes into db)
         - callback function redirects to index
 
+    * show ("/blogs/:id", GET)
+
+    * edit ("/blogs/:id/edit", GET)
+
+    * update ("/blogs/:id", PUT)
+
+    * destroy ("/blogs/:id", DELTE)
 
