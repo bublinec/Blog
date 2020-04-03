@@ -1,4 +1,4 @@
-// SETUP
+// 1. SETUP
 // * include packages
 const bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
@@ -28,7 +28,7 @@ app.listen(port, function(err){
 });
 
 
-// MONGOOSE SCHEMA + MODEL
+// 2. MONGOOSE SCHEMA + MODEL
 var blogSchema = new mongoose.Schema({
     title: String,
     body: String,
@@ -38,22 +38,46 @@ var blogSchema = new mongoose.Schema({
 var Blog = mongoose.model("Blog", blogSchema);
 
 
-// RESTful ROUTES
-// * index (/blogs)
-// redirect home page to index
+// 3. RESTful ROUTES
+// * index ("/blogs", GET)
+// redirect get "/" (home) to index
 app.get("/", function(req, res){
     res.redirect("/blogs")
 })
 
 app.get("/blogs", function(req, res){
-    // get all the blogs from db
+    // retrieve the blogs from db
     Blog.find({}, function(err, blogs){
         if(err){
             console.log("\nSomething went wrong: \n", err);
         }
         else{
-            // render blogs
+            // render index passing blogs
             res.render("index", {blogs: blogs});
         }
-    })
+    });
 });
+
+// * new ("blogs/new", GET)
+app.get("/blogs/new", function(req, res){
+    // render new template
+    res.render("new");
+});
+
+// * create ("/blogs", POST)
+app.post("/blogs", function(req, res){
+    // get the data from the form (body-parser)
+    // create blog (also includes into db)
+    Blog.create(req.body.blog, function(err, created_blog){
+        if(err){
+            console.log("\nSomething went wrong: \n", err);
+            res.redirect("/blogs/new");
+        }
+        else{
+            console.log("\nCreated new blog: \n", created_blog);
+            // callback function redirects to index
+            res.redirect("/blogs");
+        }
+    });
+});
+

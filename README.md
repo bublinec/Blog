@@ -22,12 +22,22 @@ MongoDB, Express, Node, Semantic UI
     * setup server
 
 2. MONGOOSE SCHEMA + MODEL CONFIG
+
 3. RESTful ROUTES
 
-    * index ("/blogs")
-        - redirect "/" (home) to "/blogs"
+    * index ("/blogs", GET)
+        - redirect get "/" (home) to index
         - retrieve blogs from db
         - render index passing blogs
         - create inex template (+ partials)
+
+    * new - form ("/blog/new", GET)
+        - render new template
+        - form names create a blog object 
+
+    * create - action of the form ("/blog", POST)
+        - get the data from the form (body-parser)
+        - create blog (also includes into db)
+        - callback function redirects to index
 
 
