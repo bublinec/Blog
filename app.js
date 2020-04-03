@@ -81,3 +81,24 @@ app.post("/blogs", function(req, res){
     });
 });
 
+// * show ("/blogs/:id", GET)
+app.get("/blogs/:id", function(req, res){
+    // find the blog with the id from the request
+    Blog.findById(req.params.id, function(err, found_blog){
+        if(err){
+            console.log("\nSomething went wrong: \n", err);
+            res.redirect("/blogs");
+        }
+        else{
+            // render the show template in the callback, passing found blog            
+            res.render("show", {blog: found_blog});
+        } 
+    })
+})
+
+// * edit ("/blogs/:id/edit", GET)
+
+// * update ("/blogs/:id", PUT)
+
+// * destroy ("/blogs/:id", DELTE)
+

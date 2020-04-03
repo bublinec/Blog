@@ -42,10 +42,11 @@ MongoDB, Express, Node, Semantic UI
         - callback function redirects to index
 
     * show ("/blogs/:id", GET)
+        - find the blog with the id from the request
+        - render the show template in the callback, passing found blog
 
     * edit ("/blogs/:id/edit", GET)
 
     * update ("/blogs/:id", PUT)
 
     * destroy ("/blogs/:id", DELTE)
-
