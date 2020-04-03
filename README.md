@@ -24,7 +24,10 @@ MongoDB, Express, Node, Semantic UI
 2. MONGOOSE SCHEMA + MODEL CONFIG
 3. RESTful ROUTES
 
-    * index (/blogs)
-
+    * index ("/blogs")
+        - redirect "/" (home) to "/blogs"
+        - retrieve blogs from db
+        - render index passing blogs
+        - create inex template (+ partials)
 
 
