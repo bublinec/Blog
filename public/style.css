@@ -13,3 +13,7 @@ i.icon{
     width: 100%;
     object-fit: cover;
 }
+
+#deleteForm{
+    display: inline;
+}

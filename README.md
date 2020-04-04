@@ -17,6 +17,7 @@ MongoDB, Express, Node, Semantic UI
         - ejs - embedded js - dynamic templates
         - body-parser - to get our data from a form
         - method-override - to override post request to put in the edit form
+        - express-sanitizer - to remove js from blog body
     * create app.js (the main file) 
     * include packgaes using require
     * configure app
@@ -40,7 +41,8 @@ MongoDB, Express, Node, Semantic UI
 
     * create - action of the form ("/blog", POST)
         - get the data from the form (body-parser)
-        - create blog (also includes into db)
+        - sanitize blog body (remove all js - script tags - can be harmful)
+        - create blog - insert it into db
         - callback function redirects to show
 
     * show ("/blogs/:id", GET)
@@ -73,3 +75,7 @@ MongoDB, Express, Node, Semantic UI
         (needs to be a from with action delete - using method-override)
         - find the blog with the id from the request and remove it from db
         - redirect to index
+
+4. LAYOUT AND STYLING
+    * play with SEMANTIC UI
+    

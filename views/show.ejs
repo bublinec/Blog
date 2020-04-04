@@ -20,7 +20,7 @@
     <a href="/blogs/<%= blog._id %>/edit" >
         <button class="ui green big basic button">Edit</button>
     </a>
-    <form action="/blogs/<%= blog._id %>?_method=DELETE" method="post">
+    <form id="deleteForm" action="/blogs/<%= blog._id %>?_method=DELETE" method="post">
         <button class="ui red big basic button">Delete</button>
     </form>
 

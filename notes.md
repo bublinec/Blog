@@ -10,3 +10,6 @@ Delete
 
 ## 7 restful routes (see the img)
 
+## Side Notes
+- anchor makes a get request
+- form is not an inline element while anchor is (set to display: inline)

@@ -1,7 +1,8 @@
 // 1. SETUP
 // * include packages
 
-const methodOverride = require("method-override"),
+const expressSanitizer = require("express-sanitizer"),
+      methodOverride = require("method-override"),
       bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
       express = require("express"),
@@ -15,6 +16,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 // set what the methodOverride should look for in the url
 app.use(methodOverride("_method"));
+app.use(expressSanitizer());
 
 // * configure mongo db usnig mongoose
 mongoose.connect("mongodb://localhost/blog", {useNewUrlParser: true,useUnifiedTopology: true});
@@ -70,6 +72,8 @@ app.get("/blogs/new", function(req, res){
 
 // * create ("/blogs", POST)
 app.post("/blogs", function(req, res){
+    // sanitize body of blog (remove js)
+    req.body.blog.body = req.sanitize(req.body.blog.body); 
     // get the data from the form (body-parser)
     // create blog (also includes into db)
     Blog.create(req.body.blog, function(err, created_blog){
@@ -117,6 +121,8 @@ app.get("/blogs/:id/edit", function(req, res){
 
 // * update ("/blogs/:id", PUT)
 app.put("/blogs/:id", function(req, res){
+    // sanitize body of blog (remove js)
+    req.body.blog.body = req.sanitize(req.body.blog.body);
     // find the blog with the id from the request and update db
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updated_blog){
         if(err){
@@ -144,4 +150,3 @@ app.delete("/blogs/:id", function(req, res){
         }
     });
 });
-
