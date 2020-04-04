@@ -17,3 +17,7 @@ i.icon{
 #deleteForm{
     display: inline;
 }
+
+.ui.top.attached{
+    margin-bottom: 20px;
+}

@@ -2,7 +2,6 @@
 
 Simple dynamic web app which uses RESTful routing to satisfy all CRUD funcitionalities.
 
-
 ## Technology Stack:
 MongoDB, Express, Node, Semantic UI
 
