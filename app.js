@@ -1,6 +1,8 @@
 // 1. SETUP
 // * include packages
-const bodyParser = require("body-parser"),
+
+const methodOverride = require("method-override"),
+      bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
       express = require("express"),
       app = express();
@@ -11,6 +13,8 @@ app.set("view engine", "ejs");
 // inlcude public dir in express
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
+// set what the methodOverride should look for in the url
+app.use(methodOverride("_method"));
 
 // * configure mongo db usnig mongoose
 mongoose.connect("mongodb://localhost/blog", {useNewUrlParser: true,useUnifiedTopology: true});
@@ -75,8 +79,8 @@ app.post("/blogs", function(req, res){
         }
         else{
             console.log("\nCreated new blog: \n", created_blog);
-            // callback function redirects to index
-            res.redirect("/blogs");
+            // callback function redirects to show
+            res.redirect("/blogs/" + req.params.id);
         }
     });
 });
@@ -93,12 +97,51 @@ app.get("/blogs/:id", function(req, res){
             // render the show template in the callback, passing found blog            
             res.render("show", {blog: found_blog});
         } 
-    })
-})
+    });
+});
 
 // * edit ("/blogs/:id/edit", GET)
+app.get("/blogs/:id/edit", function(req, res){
+    // find the blog with the id from the request
+    Blog.findById(req.params.id, function(err, found_blog){
+        if(err){
+            console.log("\nSomething went wrong: \n", err);
+            res.redirect("/blogs");
+        }
+        else{
+            // render the edit template in the callback, passing found blog            
+            res.render("edit", {blog: found_blog});
+        } 
+    });
+});
 
 // * update ("/blogs/:id", PUT)
+app.put("/blogs/:id", function(req, res){
+    // find the blog with the id from the request and update db
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function(err, updated_blog){
+        if(err){
+            console.log("\nSomething went wrong: \n", err);
+            res.redirect("/blogs/" + req.params.id + "/edit");
+        }
+        else{
+            console.log("\nCreated new blog: \n", updated_blog);
+            // callback function redirects to show
+            res.redirect("/blogs/" + req.params.id);
+        }
+    });
+});
 
 // * destroy ("/blogs/:id", DELTE)
+app.delete("/blogs/:id", function(req, res){
+    // find the blog with the id from the request and remove it from db
+    Blog.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            console.log(("\nSomething went wrong: \n", err));
+        }
+        else{
+        // redirect to index
+        res.redirect("/blogs");
+        }
+    });
+});
 

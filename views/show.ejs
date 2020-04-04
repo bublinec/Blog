@@ -1,6 +1,8 @@
 <%- include("partials/header") %>
 
 <div class="ui main text container segment">
+
+    <!-- Blog form -->
     <div class="ui huge header"><%= blog.title %> </div>
     <div class="ui top attached">
         <div class="item">
@@ -13,7 +15,15 @@
             </div>
         </div>
     </div>
-    <input class="ui red big basic button" type="submit">
+
+    <!-- Action buttons -->
+    <a href="/blogs/<%= blog._id %>/edit" >
+        <button class="ui green big basic button">Edit</button>
+    </a>
+    <form action="/blogs/<%= blog._id %>?_method=DELETE" method="post">
+        <button class="ui red big basic button">Delete</button>
+    </form>
+
 </div>
 
 <%- include("partials/footer") %>

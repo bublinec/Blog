@@ -51,17 +51,25 @@ MongoDB, Express, Node, Semantic UI
     * edit ("/blogs/:id/edit", GET)
         - find the blog with the id from the request
         - render the edit template in the callback, passing found blog
+        - add 'update' button in the show template wtih href to edit
         - create edit template (copy the form from new)
         - form will not create anything until the update route is done
 
     * update ("/blogs/:id", PUT)
-        - create the route in app.js
+        - create a put route in app.js
         - set edit form action to redirect here
         - html forms only support get and post request 
         => we use method-override package to override post to put
+        <br /> 
         (we could just do post with different url, but we want to follow the useful RESTful routes pattern)
         - find the blog with the id from the request and update db
         (findByIdAndUpdate(id, new_date, callback))
         - callback function redirects to show
 
     * destroy ("/blogs/:id", DELTE)
+        - create a delete route in app.js
+        - add delete button in the show page
+        <br/> 
+        (needs to be a from with action delete - using method-override)
+        - find the blog with the id from the request and remove it from db
+        - redirect to index
